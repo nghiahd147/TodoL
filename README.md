@@ -31,9 +31,9 @@ Fw: Node.js
 - TailwindCss
 - Axios
 
-* State management
+- State management
 
-- # Zustand
+* Zustand
 
 # TodoL
 
