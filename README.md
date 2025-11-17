@@ -3,26 +3,19 @@
 ## Backend:
 
 ### Framework:
-
-Database: mongoose, mongodb
+Database: Mongo
 Fw: Node.js
 
 ### Api
-
-- Categories
-
-* Show categories
-* Create categories
-* Update categories
-* Delete categories
-
-- Task
-
-* Show list tasks
-* Create list tasks
-* Update task
-* Update status
-* Delete task
+- Show categories
+- Create categories
+- Update categories
+- Delete categories
+- Show list tasks
+- Create list tasks
+- Update task
+- Update status
+- Delete task
 
 ## Frontend
 
@@ -30,11 +23,4 @@ Fw: Node.js
 - Ant Design
 - TailwindCss
 - Axios
-
-- State management
-
-* Zustand
-
-# TodoL
-
-A website that helps you manage your work
+- Zustand
