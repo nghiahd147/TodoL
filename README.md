@@ -26,9 +26,14 @@ Fw: Node.js
 
 ## Frontend
 
-Style: Ant Design, TailwindCss
-Fw: React.js, Axios, Zustand
-=======
+- React.js
+- Ant Design
+- TailwindCss
+- Axios
+
+* State management
+
+- # Zustand
 
 # TodoL
 
