@@ -1,0 +1,63 @@
+import { FaDiagramNext } from "react-icons/fa6";
+import { FaCalendarAlt, FaStickyNote, FaListOl } from "react-icons/fa";
+
+const TaskTab = (props) => {
+  const { setCurrentTab, currentTab, state, title, lengthTask } = props;
+
+  return (
+    <div
+      key={state}
+      onClick={() => setCurrentTab(state)}
+      className={`${
+        currentTab == state && "bg-neutral-200"
+      } 'group hover:bg-neutral-200 flex items-center justify-between my-1 cursor-pointer py-2 transition-all duration-300 px-2 rounded-sm`}
+    >
+      <div className="flex items-center">
+        {title == "Upcoming" && (
+          <FaDiagramNext
+            color={`${currentTab == state ? "#000000" : "#737373"}`}
+            className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"
+          />
+        )}
+        {title == "Today" && (
+          <FaListOl
+            color={`${currentTab == state ? "#000000" : "#737373"}`}
+            className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"
+          />
+        )}
+        {title == "Calendar" && (
+          <FaCalendarAlt
+            color={`${currentTab == state ? "#000000" : "#737373"}`}
+            className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"
+          />
+        )}
+        {title == "Sticky Wall" && (
+          <FaStickyNote
+            color={`${currentTab == state ? "#000000" : "#737373"}`}
+            className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"
+          />
+        )}
+        <span
+          className={`${
+            currentTab == state ? "text-black" : "text-neutral-500"
+          } text-sm font-bold group-hover:text-black transition-all duration-300`}
+        >
+          {title}
+        </span>
+      </div>
+      {title == "Upcoming" || title == "Today" ? (
+        <div
+          className={`${
+            currentTab == state ? "bg-white" : "bg-neutral-100"
+          }  w-10 group-hover:bg-white transition-all duration-300 px-3 rounded-md`}
+        >
+          <span className="block text-center text-sm font-bold">
+            {lengthTask}
+          </span>
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+export default TaskTab;
