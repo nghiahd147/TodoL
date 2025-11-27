@@ -1,19 +1,22 @@
 import { FaDiagramNext } from "react-icons/fa6";
 import { FaCalendarAlt, FaStickyNote, FaListOl } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const TaskTab = (props) => {
-  const { setCurrentTab, currentTab, state, title, lengthTask } = props;
+  const { setCurrentTab, currentTab, state, pageLink, title, lengthTask } =
+    props;
 
   return (
-    <div
+    <Link
       key={state}
+      to={pageLink}
       onClick={() => setCurrentTab(state)}
       className={`${
         currentTab == state && "bg-neutral-200"
       } 'group hover:bg-neutral-200 flex items-center justify-between my-1 cursor-pointer py-2 transition-all duration-300 px-2 rounded-sm`}
     >
       <div className="flex items-center">
-        {title == "Upcoming" && (
+        {title == "Category" && (
           <FaDiagramNext
             color={`${currentTab == state ? "#000000" : "#737373"}`}
             className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"
@@ -56,7 +59,7 @@ const TaskTab = (props) => {
           </span>
         </div>
       ) : null}
-    </div>
+    </Link>
   );
 };
 

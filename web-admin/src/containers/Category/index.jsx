@@ -1,7 +1,8 @@
-import { Card, Col, Row, Spin } from "antd";
+import { Col, Row } from "antd";
 import { useEffect } from "react";
 import useCateStore from "../../store/useCateStore";
 import List from "./components/List";
+import Loader from "../../components/Loader/Loader";
 
 const Category = () => {
   const { isLoading, listCategories, getListCategory } = useCateStore();
@@ -30,7 +31,7 @@ const Category = () => {
           </>
         ) : (
           <>
-            <Spin />
+            <Loader />
           </>
         )}
       </div>

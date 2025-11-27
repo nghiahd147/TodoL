@@ -1,6 +1,7 @@
 import { SearchOutlined, UnorderedListOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import TaskTab from "../TaskTab/TaskTab";
+import { Image } from "antd";
 
 const Navigation = () => {
   const [currentTab, setCurrentTab] = useState("");
@@ -10,7 +11,7 @@ const Navigation = () => {
       <div className="w-[450px] p-6 min-h-screen bg-neutral-50">
         {/* Title */}
         <div className="flex justify-between items-center">
-          <h2 className="font-bold text-[20px]">Menu</h2>
+          <img src="../../../public/Logo.png" className="h-8" alt="Logo" />
           <UnorderedListOutlined
             size={100}
             className="cursor-pointer text-[18px]"
@@ -33,13 +34,15 @@ const Navigation = () => {
           <TaskTab
             setCurrentTab={setCurrentTab}
             currentTab={currentTab}
-            state={"upcoming"}
-            title={"Upcoming"}
+            pageLink={"/categories"}
+            state={"categories"}
+            title={"Category"}
             lengthTask={5}
           />
           <TaskTab
             setCurrentTab={setCurrentTab}
             currentTab={currentTab}
+            pageLink={"/"}
             state={"today"}
             title={"Today"}
             lengthTask={10}
@@ -47,12 +50,14 @@ const Navigation = () => {
           <TaskTab
             setCurrentTab={setCurrentTab}
             currentTab={currentTab}
+            pageLink={"/"}
             state={"calendar"}
             title={"Calendar"}
           />
           <TaskTab
             setCurrentTab={setCurrentTab}
             currentTab={currentTab}
+            pageLink={"/"}
             state={"sticky-wall"}
             title={"Sticky Wall"}
           />
