@@ -5,7 +5,7 @@ const Button = (props) => {
 
   return (
     <StyledWrapper>
-      <button className="btn cube cube-hover" type="button">
+      <button className="btn cube cube-hover" type="submit">
         <div className="bg-top">
           <div className="bg-inner" />
         </div>

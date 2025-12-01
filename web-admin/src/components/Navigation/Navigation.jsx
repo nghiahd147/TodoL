@@ -1,14 +1,23 @@
 import { SearchOutlined, UnorderedListOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { FaPlus, FaSignOutAlt } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
 import TaskTab from "../TaskTab/TaskTab";
-import { Image } from "antd";
+import TagTab from "../TagTab/TagTab";
+import Loader from "../../components/Loader/Loader";
+import useCateStore from "../../store/useCateStore";
 
 const Navigation = () => {
-  const [currentTab, setCurrentTab] = useState("");
+  const [currentTab, setCurrentTab] = useState("upcoming");
+  const { isLoading, listCategories, getListCategory } = useCateStore();
+
+  useEffect(() => {
+    getListCategory();
+  }, []);
 
   return (
-    <>
-      <div className="w-[450px] p-6 min-h-screen bg-neutral-50">
+    <div className="flex flex-col h-screen w-[450px]">
+      <div className="flex-1 p-6 bg-neutral-50">
         {/* Title */}
         <div className="flex justify-between items-center">
           <img src="../../../public/Logo.png" className="h-8" alt="Logo" />
@@ -34,15 +43,15 @@ const Navigation = () => {
           <TaskTab
             setCurrentTab={setCurrentTab}
             currentTab={currentTab}
-            pageLink={"/categories"}
-            state={"categories"}
-            title={"Category"}
+            pageLink={"/upcoming"}
+            state={"upcoming"}
+            title={"Upcoming"}
             lengthTask={5}
           />
           <TaskTab
             setCurrentTab={setCurrentTab}
             currentTab={currentTab}
-            pageLink={"/"}
+            pageLink={"/today"}
             state={"today"}
             title={"Today"}
             lengthTask={10}
@@ -50,20 +59,83 @@ const Navigation = () => {
           <TaskTab
             setCurrentTab={setCurrentTab}
             currentTab={currentTab}
-            pageLink={"/"}
+            pageLink={"/calendar"}
             state={"calendar"}
             title={"Calendar"}
           />
           <TaskTab
             setCurrentTab={setCurrentTab}
             currentTab={currentTab}
-            pageLink={"/"}
+            pageLink={"/sticky-wall"}
             state={"sticky-wall"}
             title={"Sticky Wall"}
           />
         </div>
+
+        {/* Lists */}
+        <div className="w-full mt-4 ml-2">
+          <h3 className="font-bold text-[16px] text-black">Lists</h3>
+          {isLoading.length > 0 ? (
+            <>
+              <Loader />
+            </>
+          ) : (
+            <>
+              {listCategories.map((item, index) => (
+                <TaskTab
+                  key={index}
+                  setCurrentTab={setCurrentTab}
+                  currentTab={currentTab}
+                  pageLink={"/upcoming"}
+                  state={""}
+                  title={item.name}
+                  lengthTask={5}
+                />
+              ))}
+            </>
+          )}
+          <div className="flex items-center w-full cursor-pointer mt-2 hover:bg-neutral-200 transition-all duration-300 py-1 rounded-xl px-2">
+            <FaPlus color="#737373" />
+            <span className="text-neutral-500 font-bold ml-2">
+              Add New List
+            </span>
+          </div>
+
+          {/* Tags */}
+          <div className="w-full mt-4 ml-2">
+            <h3 className="font-bold text-[16px] text-black">Tags</h3>
+            <div className="flex items-center justify-baseline gap-x-3 gap-y-3 mt-4 flex-wrap">
+              {/* Tag */}
+              <TagTab name={"Tag 1"} />
+              <TagTab name={"Tag 2"} />
+              <TagTab name={"Tag 3"} />
+              <TagTab name={"Tag 4"} />
+              <TagTab name={"Tag 5"} />
+              <div className="flex items-center w-full cursor-pointer mt-2 hover:bg-neutral-200 transition-all duration-300 py-1 rounded-xl px-2">
+                <FaPlus color="#737373" />
+                <span className="text-neutral-500 font-bold ml-2">
+                  Add New Tag
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </>
+
+      {/* Authen */}
+      <div className="flex flex-col h-screen w-[450px] mt-auto">
+        <div className="mt-auto p-6 bg-neutral-50">
+          <div className="flex items-center w-full cursor-pointer mt-2 hover:bg-neutral-200 transition-all duration-300 py-1 rounded-xl px-2">
+            <IoMdSettings color="#737373" />
+            <span className="text-neutral-500 font-bold ml-2">Settings</span>
+          </div>
+          <div className="flex items-center w-full cursor-pointer mt-2 hover:bg-neutral-200 transition-all duration-300 py-1 rounded-xl px-2">
+            <FaSignOutAlt color="#737373" />
+            <span className="text-neutral-500 font-bold ml-2">Sign out</span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -2,22 +2,24 @@ import Category from "../models/categories.js";
 
 export const getListCategory = async (req, res) => {
   try {
-    const page = req.query.page || 1;
-    const limit = req.query.limit || 10;
-    const skip = (page - 1) * limit;
-    const search = req.query.search || "";
+    // const page = req.query.page || 1;
+    // const limit = req.query.limit || 10;
+    // const skip = (page - 1) * limit;
+    // const search = req.query.search || "";
 
-    const query = search ? { name: { $regex: search, $options: "i" } } : {};
+    // const query = search ? { name: { $regex: search, $options: "i" } } : {};
 
-    const categories = await Category.find(query).skip(skip).limit(limit);
+    const categories = await Category.find();
+    // query
+    // .skip(skip).limit(limit);
 
     const total = await Category.countDocuments();
-    const totalPages = Math.ceil(total / limit);
+    // const totalPages = Math.ceil(total / limit);
 
     res.status(200).json({
       data: categories,
       total,
-      totalPages,
+      // totalPages,
       message: "Categories fetched successfully",
     });
   } catch (error) {
