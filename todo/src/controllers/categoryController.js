@@ -28,6 +28,26 @@ export const getListCategory = async (req, res) => {
   }
 };
 
+export const getCategoryById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const categoryById = await Category.findById(id);
+
+    if (!categoryById) {
+      return res.status(404).json({ message: "Category is not defied" });
+    }
+
+    res.status(200).json({
+      data: categoryById,
+      message: "Category fetched successfully",
+    });
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 export const createCategory = async (req, res) => {
   try {
     const { name, description } = req.body;
@@ -54,7 +74,9 @@ export const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!id) {
+    const categoryById = await Category.findById(id);
+
+    if (!categoryById) {
       return res.status(404).json({ message: "Category is not defied" });
     }
 
@@ -86,7 +108,9 @@ export const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!id) {
+    const categoryById = await Category.findById(id);
+
+    if (!categoryById) {
       return res.status(404).json({ message: "Category is not defied" });
     }
 

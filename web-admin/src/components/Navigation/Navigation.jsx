@@ -6,14 +6,23 @@ import TaskTab from "../TaskTab/TaskTab";
 import TagTab from "../TagTab/TagTab";
 import Loader from "../../components/Loader/Loader";
 import useCateStore from "../../store/useCateStore";
+import { randomColor } from "../../utils/colors";
 
 const Navigation = () => {
   const [currentTab, setCurrentTab] = useState("upcoming");
-  const { isLoading, listCategories, getListCategory } = useCateStore();
+  const {
+    isLoading,
+    idCategory,
+    setCategoryId,
+    listCategories,
+    getListCategory,
+  } = useCateStore();
 
   useEffect(() => {
     getListCategory();
   }, []);
+
+  console.log("idCategory", idCategory);
 
   return (
     <div className="flex flex-col h-screen w-[450px]">
@@ -81,17 +90,26 @@ const Navigation = () => {
             </>
           ) : (
             <>
-              {listCategories.map((item, index) => (
-                <TaskTab
-                  key={index}
-                  setCurrentTab={setCurrentTab}
-                  currentTab={currentTab}
-                  pageLink={"/upcoming"}
-                  state={""}
-                  title={item.name}
-                  lengthTask={5}
-                />
-              ))}
+              {listCategories.map((item, _) => {
+                return (
+                  <div
+                    key={item._id}
+                    onClick={() => setCategoryId(item._id)}
+                    className={`group bg-white hover:bg-neutral-200 flex items-center justify-between my-1 cursor-pointer py-2 transition-all duration-300 px-2 rounded-sm`}
+                  >
+                    <div className="flex items-center">
+                      <div
+                        className={`w-5 h-5 rounded-2xl mr-2 ${randomColor()}`}
+                      />
+                      <span
+                        className={`text-neutral-500 text-sm font-bold group-hover:text-black transition-all duration-300`}
+                      >
+                        {item.name}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </>
           )}
           <div className="flex items-center w-full cursor-pointer mt-2 hover:bg-neutral-200 transition-all duration-300 py-1 rounded-xl px-2">
