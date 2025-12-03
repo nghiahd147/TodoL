@@ -101,3 +101,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License.
+
+## Accumulation
+
+### Antdesign
+
+form.setFieldsValue: set giá trị trong Form
+form.resetFields: reset giá trị trong Form

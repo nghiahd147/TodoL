@@ -95,7 +95,7 @@ const Navigation = () => {
                   <div
                     key={item._id}
                     onClick={() => setCategoryId(item._id)}
-                    className={`group bg-white hover:bg-neutral-200 flex items-center justify-between my-1 cursor-pointer py-2 transition-all duration-300 px-2 rounded-sm`}
+                    className={`group bg-neutral-50 hover:bg-neutral-200 flex items-center justify-between my-1 cursor-pointer py-2 transition-all duration-300 px-2 rounded-sm`}
                   >
                     <div className="flex items-center">
                       <div
@@ -141,8 +141,8 @@ const Navigation = () => {
       </div>
 
       {/* Authen */}
-      <div className="flex flex-col h-screen w-[450px] mt-auto">
-        <div className="mt-auto p-6 bg-neutral-50">
+      <div className="flex flex-col h-screen w-[450px] mt-auto bg-neutral-50">
+        <div className="mt-auto p-6">
           <div className="flex items-center w-full cursor-pointer mt-2 hover:bg-neutral-200 transition-all duration-300 py-1 rounded-xl px-2">
             <IoMdSettings color="#737373" />
             <span className="text-neutral-500 font-bold ml-2">Settings</span>

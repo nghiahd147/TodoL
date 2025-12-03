@@ -1,6 +1,5 @@
-import { Input } from "antd";
-import Button from "../Button/Button";
-import { Form, message } from "antd";
+import { Input, Space } from "antd";
+import { Form, message, Button } from "antd";
 import useCateStore from "../../store/useCateStore";
 import { useEffect } from "react";
 
@@ -20,13 +19,13 @@ const Aside = () => {
   const success = () => {
     messageApi.open({
       type: "success",
-      content: "Created category successfully",
+      content: "Category created successfully",
     });
   };
-  const error = () => {
+  const errorMessage = () => {
     messageApi.open({
       type: "error",
-      content: "Error",
+      content: "Failed to create category",
     });
   };
 
@@ -43,7 +42,7 @@ const Aside = () => {
       }
     };
     fetchCategoryDetail();
-  }, [idCategory]);
+  }, []);
 
   const onFinish = async (value) => {
     try {
@@ -60,21 +59,23 @@ const Aside = () => {
       success();
     } catch (error) {
       console.log(error);
+      errorMessage();
     }
   };
 
-  const onCancel = () => {
-    console.log("clicked");
-    setCategoryId(null);
+  const onReset = () => {
     form.resetFields();
+    setCategoryId(null);
   };
 
   return (
-    <div className="flex flex-col h-screen w-[450px]">
+    <div className="flex flex-col h-screen w-[450px] bg-neutral-50">
       {contextHolder}
-      <Form form={form} onFinish={onFinish}>
-        <div className="p-6 bg-neutral-50">
-          <span className="font-bold text-2xl">Add New List</span>
+      <Form form={form} onFinish={onFinish} autoComplete="off">
+        <div className="p-6 ">
+          <span className="font-bold text-2xl">
+            {idCategory ? "Category Details" : "Create Category"}
+          </span>
           <div className="flex flex-col gap-y-3 mt-3">
             <Form.Item
               name="name"
@@ -100,8 +101,16 @@ const Aside = () => {
           </div>
         </div>
         <div className="mt-2 p-6 gap-x-6 flex items-center">
-          <Button name="Cancel" htmlType="reset" />
-          <Button name="Save changes" />
+          <Form.Item>
+            <Space>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+              <Button htmlType="button" onClick={onReset}>
+                Reset
+              </Button>
+            </Space>
+          </Form.Item>
         </div>
       </Form>
     </div>
