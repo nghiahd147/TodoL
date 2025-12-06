@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { name } = props;
+  const { name, htmlType } = props;
 
   return (
     <StyledWrapper>
-      <button className="btn cube cube-hover" type="button">
+      <button className="btn cube cube-hover" htmlType={htmlType} type="submit">
         <div className="bg-top">
           <div className="bg-inner" />
         </div>
