@@ -47,7 +47,9 @@ export const updateTag: RequestHandler = async (req, res) => {
     const { id } = req.params
 
     if (!id) {
-      return res.status(400).json('Tag is not found')
+      return res.status(400).json({
+        message: 'Tag is not found'
+      })
     }
 
     const updateTag = await Tag.findByIdAndUpdate(id, req.body, { new: true })
@@ -69,8 +71,12 @@ export const deleteTag: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params
 
-    if (!id) {
-      return res.status(400).json('Tag is not found')
+    const tagById = await Tag.findById(id)
+
+    if (!tagById) {
+      return res.status(404).json({
+        message: 'Tag is not found'
+      })
     }
 
     await Tag.findByIdAndDelete(id)

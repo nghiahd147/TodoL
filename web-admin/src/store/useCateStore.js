@@ -25,8 +25,8 @@ const useCateStore = create((set) => ({
         return null;
       }
     } catch (error) {
+      console.log("error", error.message);
       set({ isLoading: false });
-      console.log(error);
     }
   },
 
@@ -43,8 +43,8 @@ const useCateStore = create((set) => ({
         return null;
       }
     } catch (error) {
+      console.log("error", error.message);
       set({ isLoading: false });
-      console.log(error);
     }
   },
 
@@ -61,8 +61,8 @@ const useCateStore = create((set) => ({
         set({ isLoading: false });
       }
     } catch (error) {
+      console.log("error", error.message);
       set({ isLoading: false });
-      console.log(error);
     }
   },
 
@@ -79,7 +79,7 @@ const useCateStore = create((set) => ({
         set({ isLoading: false });
       }
     } catch (error) {
-      console.log(error);
+      console.log("error", error.message);
       set({ isLoading: false });
     }
   },
@@ -87,16 +87,10 @@ const useCateStore = create((set) => ({
   deleteCategory: async (id) => {
     set({ isLoading: true });
     try {
-      const response = await axios.delete(
-        API_ENDPOINTS.CATEGORIES.deleteCategory(id)
-      );
-      if (response.status === 200) {
-        set({ isLoading: false });
-      } else {
-        set({ isLoading: false });
-      }
+      await axios.delete(API_ENDPOINTS.CATEGORIES.deleteCategory(id));
+      set({ isLoading: false });
     } catch (error) {
-      console.log(error);
+      console.log("error", error.message);
       set({ isLoading: false });
     }
   },

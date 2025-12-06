@@ -10,39 +10,43 @@ const Aside = () => {
     getListCategory,
     getCategoryById,
     idCategory,
-    setCategoryId,
     categoryDetail,
+    setCategoryId,
     createCategory,
+    updateCategory,
   } = useCateStore();
 
   const [messageApi, contextHolder] = message.useMessage();
-  const success = () => {
+  const successMessage = () => {
     messageApi.open({
       type: "success",
-      content: "Category created successfully",
+      content: `Category ${idCategory ? "updated" : "created"} successfully`,
     });
   };
   const errorMessage = () => {
     messageApi.open({
       type: "error",
-      content: "Failed to create category",
+      content: `Failed to ${idCategory ? "updated" : "created"} category`,
     });
   };
+
+  useEffect(() => {
+    form.setFieldsValue({
+      name: categoryDetail?.name,
+      description: categoryDetail?.description,
+    });
+  }, [categoryDetail]);
 
   useEffect(() => {
     const fetchCategoryDetail = async () => {
       if (idCategory) {
         await getCategoryById(idCategory);
-        form.setFieldsValue({
-          name: categoryDetail?.name,
-          description: categoryDetail?.description,
-        });
       } else {
         form.resetFields();
       }
     };
     fetchCategoryDetail();
-  }, []);
+  }, [idCategory]);
 
   const onFinish = async (value) => {
     try {
@@ -50,13 +54,15 @@ const Aside = () => {
         await updateCategory(idCategory, value);
         getListCategory();
         form.resetFields();
-        success();
+        successMessage();
+        setCategoryId(null);
         return;
       }
       await createCategory(value);
       getListCategory();
+      setCategoryId(null);
       form.resetFields();
-      success();
+      successMessage();
     } catch (error) {
       console.log(error);
       errorMessage();
