@@ -104,7 +104,12 @@ This project is licensed under the MIT License.
 
 ## Accumulation
 
-### Antdesign
+### Note
 
-form.setFieldsValue: set giá trị trong Form
-form.resetFields: reset giá trị trong Form
+- form.setFieldsValue: set giá trị trong Form
+- form.resetFields: reset giá trị trong Form
+- Nếu 1 error ghi là mong đợi 1 dấu ; trong 1 object thì có thể bạn đang thiếu 1 dấu ngoặc tròn bao bọc ()
+- Combo sunsil óng mượt `transition-all duration-300 ease-in-out`
+- onMouseEnter: xác định chuột đang hover vào
+- onMouseLeave: xác định chuột bỏ hover
+- Combo ẩn chữ ...: `overflow-hidden whitespace-nowrap text-ellipsis`

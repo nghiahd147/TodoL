@@ -1,13 +1,29 @@
+import { useState } from "react";
 import { randomColor } from "../../utils/colors";
+import { MdDelete } from "react-icons/md";
+import { Tooltip } from "antd";
 
 const TagTab = (props) => {
   const { name } = props;
+  const [isHover, setIsHover] = useState(false);
+
+  console.log("isHover", isHover);
 
   return (
     <div
-      className={`${randomColor()} w-20 text-center px-4 py-1 rounded-[5px] cursor-pointer`}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      className={`${randomColor()} w-[120px] h-[30px] text-center px-4 py-1 rounded-[5px] hover:bg-red-200 transition-all ease-in duration-500 overflow-hidden whitespace-nowrap text-ellipsis`}
     >
-      <span>{name}</span>
+      {!isHover ? (
+        <span>#{name}</span>
+      ) : (
+        <Tooltip title="Delete this tag">
+          <span className="flex items-center justify-center cursor-pointer">
+            <MdDelete size={25} className="w-full" />
+          </span>
+        </Tooltip>
+      )}
     </div>
   );
 };
