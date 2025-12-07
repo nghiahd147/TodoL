@@ -67,7 +67,7 @@ const Navigation = () => {
             />
           </div>
 
-          {/* Categories */}
+          {/*Categories - Tags*/}
           <div className="w-full mt-4 ml-2">
             <h3 className="font-bold text-[16px] text-black">Categories</h3>
             {/* Category */}

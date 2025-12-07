@@ -20,6 +20,32 @@ const useTagStore = create((set) => ({
       set({ isLoading: false });
     }
   },
+
+  createTag: async (value) => {
+    set({ isLoading: true });
+    try {
+      const response = await axios.post(API_ENDPOINTS.TAG.createTag, value);
+      if (response.status === 200) {
+        set({ isLoading: false });
+      } else {
+        set({ isLoading: false });
+      }
+    } catch (error) {
+      console.log("error", error.message);
+      set({ isLoading: false });
+    }
+  },
+
+  deleteTag: async (id) => {
+    set({ isLoading: true });
+    try {
+      await axios.delete(API_ENDPOINTS.TAG.deleteTag(id));
+      set({ isLoading: false });
+    } catch (error) {
+      console.log("error", error.message);
+      set({ isLoading: false });
+    }
+  },
 }));
 
 export default useTagStore;
