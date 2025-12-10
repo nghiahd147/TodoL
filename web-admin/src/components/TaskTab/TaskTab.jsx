@@ -35,7 +35,7 @@ const TaskTab = (props) => {
             className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"
           />
         )}
-        {title == "Sticky Wall" && (
+        {title == "Lists" && (
           <FaStickyNote
             color={`${currentTab == state ? "#000000" : "#737373"}`}
             className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"

@@ -7,7 +7,7 @@ import CategoryNavigation from "./CategoryNavigation/CategoryNavigation";
 import TagNavigation from "./TagNavigation/TagNavigation";
 
 const Navigation = () => {
-  const [currentTab, setCurrentTab] = useState("upcoming");
+  const [currentTab, setCurrentTab] = useState("/");
 
   return (
     <>
@@ -46,10 +46,17 @@ const Navigation = () => {
             <TaskTab
               setCurrentTab={setCurrentTab}
               currentTab={currentTab}
-              pageLink={"/today"}
-              state={"today"}
+              pageLink={"/"}
+              state={"/"}
               title={"Today"}
               lengthTask={10}
+            />
+            <TaskTab
+              setCurrentTab={setCurrentTab}
+              currentTab={currentTab}
+              pageLink={"/lists"}
+              state={"lists"}
+              title={"Lists"}
             />
             <TaskTab
               setCurrentTab={setCurrentTab}
@@ -57,13 +64,6 @@ const Navigation = () => {
               pageLink={"/calendar"}
               state={"calendar"}
               title={"Calendar"}
-            />
-            <TaskTab
-              setCurrentTab={setCurrentTab}
-              currentTab={currentTab}
-              pageLink={"/sticky-wall"}
-              state={"sticky-wall"}
-              title={"Sticky Wall"}
             />
           </div>
 

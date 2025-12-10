@@ -31,7 +31,6 @@ const TagNavigation = () => {
   }, []);
 
   const handleDeleteTag = async () => {
-    console.log(itemDelete._id);
     try {
       if (!itemDelete._id) {
         errorMessage();
@@ -88,11 +87,13 @@ const TagNavigation = () => {
           )}
 
           <div
-            className="flex items-center w-full cursor-pointer mt-2 hover:bg-neutral-200 transition-all duration-300 py-1 rounded-xl px-2"
+            className="flex items-center cursor-pointer bg-gray-100 hover:bg-neutral-200 transition-all duration-300 px-4 py-1 rounded-[5px] w-[120px] h-[30px]"
             onClick={() => handleTab("tag")}
           >
-            <FaPlus color="#737373" />
-            <span className="text-neutral-500 font-bold ml-2">Add New Tag</span>
+            <FaPlus className="w-3 h-3" color="#737373" />
+            <span className="text-neutral-500 font-bold ml-2 text-sm">
+              Add Tag
+            </span>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { Input, Space, Tooltip } from "antd";
 import { Form, message, Button } from "antd";
 import useCateStore from "../../../store/useCateStore";
 import { useEffect } from "react";
-import { FaArrowAltCircleRight } from "react-icons/fa";
+import { TiDelete } from "react-icons/ti";
 import useControlTab from "../../../store/useControlTab";
 
 const CategoryAside = () => {
@@ -77,7 +77,6 @@ const CategoryAside = () => {
 
   const onReset = () => {
     form.resetFields();
-    setCategoryId(null);
   };
 
   return (
@@ -90,11 +89,12 @@ const CategoryAside = () => {
               {idCategory ? "Category Details" : "Create Category"}
             </span>
             <Tooltip title="Close this tab">
-              <FaArrowAltCircleRight
-                className="cursor-pointer w-5 h-5"
+              <TiDelete
+                className="cursor-pointer w-8 h-8"
                 onClick={() => {
                   handleTab(null);
-                  onReset();
+                  form.resetFields();
+                  setCategoryId(null);
                 }}
               />
             </Tooltip>

@@ -3,6 +3,7 @@ import { Form, message, Button } from "antd";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import useControlTab from "../../../store/useControlTab";
 import useTagStore from "../../../store/useTagStore";
+import { TiDelete } from "react-icons/ti";
 
 const TagAside = () => {
   const [form] = Form.useForm();
@@ -24,7 +25,6 @@ const TagAside = () => {
   };
 
   const onFinish = async (value) => {
-    console.log("value", value);
     try {
       await createTag(value);
       getListTags();
@@ -48,8 +48,8 @@ const TagAside = () => {
           <div className="flex items-center justify-between">
             <span className="font-bold text-2xl">Create Tag</span>
             <Tooltip title="Close this tab">
-              <FaArrowAltCircleRight
-                className="cursor-pointer w-5 h-5"
+              <TiDelete
+                className="cursor-pointer w-8 h-8"
                 onClick={() => {
                   handleTab(null);
                   onReset();
