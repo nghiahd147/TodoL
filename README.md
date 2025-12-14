@@ -1,6 +1,8 @@
 # TodoL - Task Management Application
 
-A modern and efficient task management application built with MERN stack.
+_A modern and efficient task management application built with MERN stack_
+
+![web-view](./web-admin/public/web-view.png)
 
 ## Tech Stack
 
@@ -44,8 +46,8 @@ cd todo
 # Install dependencies
 yarn
 
-# Create .env file and configure environment variables
-cp .env.example .env
+# Create .env file
+PORT, MONGO_URI
 
 # Start the server
 yarn start
