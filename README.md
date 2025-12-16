@@ -115,3 +115,4 @@ This project is licensed under the MIT License.
 - onMouseEnter: xác định chuột đang hover vào
 - onMouseLeave: xác định chuột bỏ hover
 - Combo ẩn chữ ...: `overflow-hidden whitespace-nowrap text-ellipsis`
+- color.toHexString(): dùng để lấy ra mã màu `#000` ở ColorPicker

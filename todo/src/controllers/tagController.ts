@@ -20,13 +20,13 @@ export const getAllTags: RequestHandler = async (req, res) => {
 
 export const createTag: RequestHandler = async (req, res) => {
   try {
-    const { name } = req.body
+    const { name, color } = req.body
 
     if (!name) {
       return res.status(400).json({ message: 'Tag name is required' })
     }
 
-    const newTag = new Tag({ name })
+    const newTag = new Tag({ name, color })
     await newTag.save()
 
     res.status(201).json({
@@ -52,7 +52,9 @@ export const updateTag: RequestHandler = async (req, res) => {
       })
     }
 
-    const updateTag = await Tag.findByIdAndUpdate(id, req.body, { new: true })
+    const { name, color } = req.body
+
+    const updateTag = await Tag.findByIdAndUpdate(id, { name, color }, { new: true })
 
     res.status(200).json({
       message: 'Tag updated successfully',

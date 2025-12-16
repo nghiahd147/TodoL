@@ -1,4 +1,4 @@
-import { Input, Space, Tooltip } from "antd";
+import { ColorPicker, Input, Space, Tooltip } from "antd";
 import { Form, message, Button } from "antd";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import useControlTab from "../../../store/useControlTab";
@@ -24,9 +24,16 @@ const TagAside = () => {
     });
   };
 
-  const onFinish = async (value) => {
+  const onFinish = async (values) => {
+    const { name, color } = values;
+
+    const payload = {
+      name,
+      color: color.toHexString(),
+    };
+
     try {
-      await createTag(value);
+      await createTag(payload);
       getListTags();
       form.resetFields();
       successMessage();
@@ -58,6 +65,7 @@ const TagAside = () => {
             </Tooltip>
           </div>
           <div className="flex flex-col gap-y-3 mt-3">
+            <span>Nhập tên tag:</span>
             <Form.Item
               name="name"
               rules={[
@@ -69,6 +77,10 @@ const TagAside = () => {
                 placeholder="Name"
                 variant="underlined"
               />
+            </Form.Item>
+            <span>Chọn màu:</span>
+            <Form.Item name="color" rules={[{ required: false }]}>
+              <ColorPicker defaultValue="#1677ff" />
             </Form.Item>
           </div>
         </div>
