@@ -3,6 +3,7 @@ import { connectDb } from './config/db.js'
 import dotenv from 'dotenv'
 import todoRoute from './routes/todoRoute.js'
 import categoryRoute from './routes/categoryRoute.js'
+import tagRoute from './routes/tagRoute.js'
 import cors from 'cors'
 
 dotenv.config()
@@ -14,6 +15,7 @@ app.use(express.json())
 
 app.use('/api', todoRoute)
 app.use('/api', categoryRoute)
+app.use('/api', tagRoute)
 
 connectDb()
   .then(() => {

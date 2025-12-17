@@ -1,6 +1,8 @@
 # TodoL - Task Management Application
 
-A modern and efficient task management application built with MERN stack.
+_A modern and efficient task management application built with MERN stack_
+
+![web-view](./web-admin/public/web-view.png)
 
 ## Tech Stack
 
@@ -44,8 +46,8 @@ cd todo
 # Install dependencies
 yarn
 
-# Create .env file and configure environment variables
-cp .env.example .env
+# Create .env file
+PORT, MONGO_URI
 
 # Start the server
 yarn start
@@ -104,7 +106,13 @@ This project is licensed under the MIT License.
 
 ## Accumulation
 
-### Antdesign
+### Note
 
-form.setFieldsValue: set giá trị trong Form
-form.resetFields: reset giá trị trong Form
+- form.setFieldsValue: set giá trị trong Form
+- form.resetFields: reset giá trị trong Form
+- Nếu 1 error ghi là mong đợi 1 dấu ; trong 1 object thì có thể bạn đang thiếu 1 dấu ngoặc tròn bao bọc ()
+- Combo sunsil óng mượt `transition-all duration-300 ease-in-out`
+- onMouseEnter: xác định chuột đang hover vào
+- onMouseLeave: xác định chuột bỏ hover
+- Combo ẩn chữ ...: `overflow-hidden whitespace-nowrap text-ellipsis`
+- color.toHexString(): dùng để lấy ra mã màu `#000` ở ColorPicker

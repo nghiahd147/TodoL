@@ -52,12 +52,12 @@ export const getCategoryById: RequestHandler = async (req, res) => {
 
 export const createCategory: RequestHandler = async (req, res) => {
   try {
-    const { name, description } = req.body
+    const { name, description, color } = req.body
     if (!name || !description) {
       return res.status(400).json({ message: 'Name and description are required' })
     }
 
-    const createdCategory = new Category({ name, description })
+    const createdCategory = new Category({ name, description, color })
     await createdCategory.save()
 
     res.status(201).json({
@@ -80,13 +80,13 @@ export const updateCategory: RequestHandler = async (req, res) => {
       return res.status(404).json({ message: 'Category is not defied' })
     }
 
-    const { name, description } = req.body
+    const { name, description, color } = req.body
 
     if (!name || !description) {
       return res.status(400).json({ message: 'Name and description are required' })
     }
 
-    const updatedCategory = await Category.findByIdAndUpdate(id, { name, description }, { new: true })
+    const updatedCategory = await Category.findByIdAndUpdate(id, { name, description, color }, { new: true })
 
     res.status(200).json({
       data: updatedCategory,

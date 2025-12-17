@@ -8,6 +8,13 @@ export const API_ENDPOINTS = {
     updateCategory: (id) => `${API_BASE_URL}/categories/${id}`,
     deleteCategory: (id) => `${API_BASE_URL}/categories/${id}`,
   },
+  TAG: {
+    getListTags: `${API_BASE_URL}/tags`,
+    createTag: `${API_BASE_URL}/tag`,
+    getTagById: (id) => `${API_BASE_URL}/tag/${id}`,
+    updateTag: (id) => `${API_BASE_URL}/tag/${id}`,
+    deleteTag: (id) => `${API_BASE_URL}/tag/${id}`,
+  },
   TODOS: {
     getListTodos: `${API_BASE_URL}/todos`,
     createTodo: `${API_BASE_URL}/todos`,
