@@ -79,8 +79,11 @@ const TagAside = () => {
               />
             </Form.Item>
             <span>Chọn màu:</span>
-            <Form.Item name="color" rules={[{ required: false }]}>
-              <ColorPicker defaultValue="#1677ff" />
+            <Form.Item
+              name="color"
+              rules={[{ required: true, message: "Please choose color" }]}
+            >
+              <ColorPicker defaultValue="#fff" />
             </Form.Item>
           </div>
         </div>

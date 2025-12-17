@@ -3,7 +3,7 @@ import styled from "styled-components";
 const NullAside = () => {
   return (
     <div className="h-screen flex flex-col justify-center items-center">
-      <h2 class="text-3xl text-center font-black text-gray-800 tracking-tight leading-none uppercase p-6 border-b-4 border-yellow-400 transform skew-y-1 hover:skew-y-0 transition duration-500 ease-in-out">
+      <h2 className="text-3xl text-center font-black text-gray-800 tracking-tight leading-none uppercase p-6 border-b-4 border-yellow-400 transform skew-y-1 hover:skew-y-0 transition duration-500 ease-in-out">
         Cùng hoàn thành mục tiêu nào !!!
       </h2>
       <StyledWrapper>

@@ -5,7 +5,6 @@ import { FaPlus } from "react-icons/fa";
 import { MdDeleteSweep } from "react-icons/md";
 import useCateStore from "../../../store/useCateStore";
 import useControlTab from "../../../store/useControlTab";
-import { randomColor } from "../../../utils/colors";
 const CategoryNavigation = () => {
   const [itemDelete, setDeleteItem] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -88,7 +87,8 @@ const CategoryNavigation = () => {
                   <div className="w-full flex items-center justify-between">
                     <div className="flex items-center">
                       <div
-                        className={`w-6 h-5 rounded-2xl mx-2 ${randomColor()}`}
+                        className={`w-6 h-5 rounded-2xl mx-2`}
+                        style={{ backgroundColor: `${item.color}` }}
                       />
                       <span
                         className={`text-neutral-500 text-sm font-bold group-hover:text-black transition-all duration-300`}

@@ -1,4 +1,4 @@
-import { Input, Space, Tooltip } from "antd";
+import { ColorPicker, Input, Space, Tooltip } from "antd";
 import { Form, message, Button } from "antd";
 import useCateStore from "../../../store/useCateStore";
 import { useEffect } from "react";
@@ -42,29 +42,42 @@ const CategoryAside = () => {
     form.setFieldsValue({
       name: categoryDetail?.name,
       description: categoryDetail?.description,
+      color: categoryDetail?.color,
     });
   }, [categoryDetail]);
 
   useEffect(() => {
     const fetchCategoryDetail = async () => {
-      if (idCategory) {
-        await getCategoryById(idCategory);
+      try {
+        if (idCategory) {
+          await getCategoryById(idCategory);
+        }
+      } catch (error) {
+        console.log("error", error);
       }
     };
     fetchCategoryDetail();
   }, [idCategory]);
 
-  const onFinish = async (value) => {
+  const onFinish = async (values) => {
+    const { name, description, color } = values;
+
+    const payload = {
+      name,
+      description,
+      color: color.toHexString(),
+    };
+
     try {
       if (idCategory) {
-        await updateCategory(idCategory, value);
+        await updateCategory(idCategory, payload);
         getListCategory();
         form.resetFields();
         successMessage();
         setCategoryId(null);
         return;
       }
-      await createCategory(value);
+      await createCategory(payload);
       getListCategory();
       setCategoryId(null);
       form.resetFields();
@@ -100,6 +113,7 @@ const CategoryAside = () => {
             </Tooltip>
           </div>
           <div className="flex flex-col gap-y-3 mt-3">
+            <span>Nhập tên danh mục:</span>
             <Form.Item
               name="name"
               rules={[{ required: true, message: "Please input your title!" }]}
@@ -110,6 +124,7 @@ const CategoryAside = () => {
                 variant="underlined"
               />
             </Form.Item>
+            <span>Nhập mô tả:</span>
             <Form.Item
               name="description"
               rules={[
@@ -120,6 +135,13 @@ const CategoryAside = () => {
                 placeholder="Description"
                 autoSize={{ minRows: 3, maxRows: 5 }}
               />
+            </Form.Item>
+            <span>Chọn màu:</span>
+            <Form.Item
+              name="color"
+              rules={[{ required: true, message: "Please choose color" }]}
+            >
+              <ColorPicker defaultValue="#fff" />
             </Form.Item>
           </div>
         </div>
