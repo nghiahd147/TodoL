@@ -51,7 +51,7 @@ const TagAside = () => {
     <>
       {contextHolder}
       <Form form={form} onFinish={onFinish} autoComplete="off">
-        <div className="p-6 ">
+        <div className="p-6">
           <div className="flex items-center justify-between">
             <span className="font-bold text-2xl">Create Tag</span>
             <Tooltip title="Close this tab">
