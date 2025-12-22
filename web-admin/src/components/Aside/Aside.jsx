@@ -13,7 +13,7 @@ const Aside = () => {
 
   return (
     <div className={`flex flex-col h-screen w-[450px] bg-neutral-50`}>
-      {isTab === "category" || idCategory ? (
+      {isTab === "category" ? (
         <CategoryAside />
       ) : isTab === "tag" ? (
         <TagAside />

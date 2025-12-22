@@ -42,7 +42,35 @@ export const createTodo: RequestHandler = async (req, res) => {
   }
 }
 
-export const updateStatus: RequestHandler = async (req, res) => {
+export const updateTodo: RequestHandler = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const todo = await Todo.findById(id)
+
+    if (!todo) {
+      return res.status(404).json({ message: 'Todo is not defied' })
+    }
+
+    const { title, description, status, priority, due_date, cate_id } = req.body
+
+    const todoUpdate = await Todo.findByIdAndUpdate(
+      id,
+      { title, description, status, priority, due_date, cate_id },
+      { new: true }
+    )
+
+    res.status(200).json({
+      data: todoUpdate,
+      message: 'Updated todo successfully'
+    })
+  } catch (error) {
+    console.log('error', error)
+    res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export const updateStatusTodo: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params
 

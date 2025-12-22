@@ -46,7 +46,9 @@ export const updateTag: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params
 
-    if (!id) {
+    const tag = await Tag.findById(id)
+
+    if (!tag) {
       return res.status(400).json({
         message: 'Tag is not found'
       })

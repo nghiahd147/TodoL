@@ -1,9 +1,10 @@
 import { Collapse, Tooltip } from "antd";
 import useCateStore from "../../store/useCateStore";
 import useControlTab from "../../store/useControlTab";
+import { useParams } from "react-router-dom";
 
 const Lists = () => {
-  const { listCategories } = useCateStore();
+  const { listCategories, setCategoryId } = useCateStore();
   const { handleTab } = useControlTab();
 
   const items = listCategories.map((item, index) => {
@@ -12,7 +13,10 @@ const Lists = () => {
       label: (
         <div
           className="flex items-center justify-between hover:text-blue-400 transition-all ease-in duration-300 w-full"
-          onClick={() => handleTab("list-detail")}
+          onClick={() => {
+            handleTab("list-detail");
+            setCategoryId(item._id);
+          }}
         >
           <span>{item.name}</span>
           <Tooltip title="Remaining tasks">
@@ -25,10 +29,6 @@ const Lists = () => {
       children: <p>Description: {item.description}</p>,
     };
   });
-
-  // const onChange = (key) => {
-  //   console.log(key);
-  // };
 
   return (
     <div>
