@@ -15,15 +15,14 @@ export const getAllTodos: RequestHandler = async (req, res) => {
 
 export const createTodo: RequestHandler = async (req, res) => {
   try {
-    const { title, description, status, priority, due_date, cate_id } = req.body
+    const { title, status, priority, due_date, cate_id } = req.body
 
-    if (!title || cate_id) {
+    if (!title || !cate_id) {
       return res.status(400).json({ message: 'Title and Category are required' })
     }
 
     const newTodo = new Todo({
       title,
-      description,
       status,
       priority,
       due_date,
@@ -52,13 +51,9 @@ export const updateTodo: RequestHandler = async (req, res) => {
       return res.status(404).json({ message: 'Todo is not defied' })
     }
 
-    const { title, description, status, priority, due_date, cate_id } = req.body
+    const { title, status, priority, due_date, cate_id } = req.body
 
-    const todoUpdate = await Todo.findByIdAndUpdate(
-      id,
-      { title, description, status, priority, due_date, cate_id },
-      { new: true }
-    )
+    const todoUpdate = await Todo.findByIdAndUpdate(id, { title, status, priority, due_date, cate_id }, { new: true })
 
     res.status(200).json({
       data: todoUpdate,
@@ -105,9 +100,7 @@ export const deleteTodo: RequestHandler = async (req, res) => {
 
     await todo.deleteOne()
 
-    res.status(204).json({
-      message: 'Deleted todo successfully'
-    })
+    res.status(204)
   } catch (error) {
     console.log('error', error)
     res.status(500).json({ message: 'Internal server error' })

@@ -17,9 +17,9 @@ export const API_ENDPOINTS = {
   },
   TODOS: {
     getListTodos: `${API_BASE_URL}/todos`,
-    createTodo: `${API_BASE_URL}/todos`,
-    updateTodo: (id) => `${API_BASE_URL}/todos/${id}`,
-    updateStatusTodo: (id) => `${API_BASE_URL}/todos/${id}`,
-    deleteTodo: (id) => `${API_BASE_URL}/todos/${id}`,
+    createTodo: `${API_BASE_URL}/todo`,
+    updateTodo: (id) => `${API_BASE_URL}/todo/${id}`,
+    updateStatusTodo: (id) => `${API_BASE_URL}/todo/update-status/${id}`,
+    deleteTodo: (id) => `${API_BASE_URL}/todo/${id}`,
   },
 };

@@ -1,16 +1,28 @@
 import { useEffect } from "react";
-import useCateStore from "../../../store/useCateStore";
-import useControlTab from "../../../store/useControlTab";
 import { Tooltip } from "antd";
 import { TiDelete } from "react-icons/ti";
+import useCateStore from "../../../store/useCateStore";
+import useControlTab from "../../../store/useControlTab";
+import useTodoStore from "../../../store/useTodoStore";
+import Checkbox from "../../Checkbox/Checkbox";
+import { convertDate } from "../../../utils/format";
 
 const ListAside = () => {
   const { idCategory, getCategoryById, categoryDetail } = useCateStore();
+  const { todos, getAllTodos } = useTodoStore();
   const { handleTab } = useControlTab();
 
   useEffect(() => {
     getCategoryById(idCategory);
   }, [idCategory]);
+
+  useEffect(() => {
+    getAllTodos();
+  }, []);
+
+  const handleChange = (e) => {
+    console.log("value", e);
+  };
 
   return (
     <>
@@ -31,7 +43,31 @@ const ListAside = () => {
         </div>
 
         {/* Todos */}
-        <div className="mt-3"></div>
+        <div className="mt-3">
+          {/* Todo */}
+          {todos.map((item, _) => {
+            return (
+              <div
+                key={item._id}
+                className="w-full flex items-center justify-between bg-gray-100 rounded-3xl p-2"
+              >
+                {/* Info */}
+                <div className="w-[80%] flex flex-col justify-between ml-4">
+                  <span className="overflow-hidden whitespace-nowrap text-ellipsis">
+                    {item.title}
+                  </span>
+                  <span className="italic text-sm text-gray-400">
+                    Due date: {convertDate(item.due_date)}
+                  </span>
+                </div>
+                {/* Checked */}
+                <div className="mr-4">
+                  <Checkbox key={item._id} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );

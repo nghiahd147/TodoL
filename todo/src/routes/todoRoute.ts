@@ -3,9 +3,9 @@ import { createTodo, deleteTodo, getAllTodos, updateTodo, updateStatusTodo } fro
 const router = express.Router()
 
 router.get('/todos', getAllTodos)
-router.post('/todos', createTodo)
-router.put('/todos', updateTodo)
-router.put('/todos/:id', updateStatusTodo)
-router.delete('/todos/:id', deleteTodo)
+router.post('/todo', createTodo)
+router.put('/todo/:id', updateTodo)
+router.put('/todo/update-status/:id', updateStatusTodo)
+router.delete('/todo/:id', deleteTodo)
 
 export default router
