@@ -35,14 +35,14 @@ const Navigation = () => {
           {/* Tasks */}
           <div className="w-full mt-4 ml-2">
             <h3 className="font-bold text-[16px] text-black">Tasks</h3>
-            <TaskTab
+            {/* <TaskTab
               setCurrentTab={setCurrentTab}
               currentTab={currentTab}
               pageLink={"/upcoming"}
               state={"upcoming"}
               title={"Upcoming"}
               lengthTask={5}
-            />
+            /> */}
             <TaskTab
               setCurrentTab={setCurrentTab}
               currentTab={currentTab}
@@ -58,13 +58,13 @@ const Navigation = () => {
               state={"lists"}
               title={"Lists"}
             />
-            <TaskTab
+            {/* <TaskTab
               setCurrentTab={setCurrentTab}
               currentTab={currentTab}
               pageLink={"/calendar"}
               state={"calendar"}
               title={"Calendar"}
-            />
+            /> */}
           </div>
 
           {/*Categories - Tags*/}

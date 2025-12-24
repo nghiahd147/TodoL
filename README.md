@@ -117,3 +117,4 @@ This project is licensed under the MIT License.
 - Combo ẩn chữ ...: `overflow-hidden whitespace-nowrap text-ellipsis`
 - color.toHexString(): dùng để lấy ra mã màu `#000` ở ColorPicker
 - italic: chữ nghiêng trong tailwindcss
+- {{ transform: "scale(1.4)" }} dùng để tằng kích thước cho component Checkbox của Ant Design
