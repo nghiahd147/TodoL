@@ -1,11 +1,17 @@
+import { useEffect } from "react";
 import { Collapse, Tooltip } from "antd";
 import useCateStore from "../../store/useCateStore";
 import useControlTab from "../../store/useControlTab";
-import { useParams } from "react-router-dom";
+import useTodoStore from "../../store/useTodoStore";
 
 const Lists = () => {
   const { listCategories, setCategoryId } = useCateStore();
+  const { todos, getAllTodos } = useTodoStore();
   const { handleTab } = useControlTab();
+
+  useEffect(() => {
+    getAllTodos();
+  }, []);
 
   const items = listCategories.map((item, index) => {
     return {
@@ -21,7 +27,7 @@ const Lists = () => {
           <span>{item.name}</span>
           <Tooltip title="Remaining tasks">
             <span className="w-6 h-6 rounded-2xl border bg-white text-center">
-              5
+              {todos.filter((item) => item.status === "in_progress").length}
             </span>
           </Tooltip>
         </div>
