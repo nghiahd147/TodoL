@@ -13,7 +13,7 @@ const Lists = () => {
     getAllTodos();
   }, []);
 
-  const items = listCategories.map((item, index) => {
+  const items = listCategories.map((itemCate, index) => {
     return {
       key: index,
       label: (
@@ -21,18 +21,23 @@ const Lists = () => {
           className="flex items-center justify-between hover:text-blue-400 transition-all ease-in duration-300 w-full"
           onClick={() => {
             handleTab("list-detail");
-            setCategoryId(item._id);
+            setCategoryId(itemCate._id);
           }}
         >
-          <span>{item.name}</span>
+          <span>{itemCate.name}</span>
           <Tooltip title="Remaining tasks">
             <span className="w-6 h-6 rounded-2xl border bg-white text-center">
-              {todos.filter((item) => item.status === "in_progress").length}
+              {
+                todos
+                  .filter((itemTodo) => itemTodo.cate_id === itemCate._id)
+                  .filter((itemTodo) => itemTodo.status === "in_progress")
+                  .length
+              }
             </span>
           </Tooltip>
         </div>
       ),
-      children: <p>Description: {item.description}</p>,
+      children: <p>Description: {itemCate.description}</p>,
     };
   });
 

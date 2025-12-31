@@ -5,9 +5,13 @@ import { IoMdSettings } from "react-icons/io";
 import TaskTab from "../TaskTab/TaskTab";
 import CategoryNavigation from "./CategoryNavigation/CategoryNavigation";
 import TagNavigation from "./TagNavigation/TagNavigation";
+import useCateStore from "../../store/useCateStore";
+import useTodoStore from "../../store/useTodoStore";
 
 const Navigation = () => {
   const [currentTab, setCurrentTab] = useState("/");
+  const { todos } = useTodoStore();
+  const { listCategories } = useCateStore();
 
   return (
     <>
@@ -35,21 +39,13 @@ const Navigation = () => {
           {/* Tasks */}
           <div className="w-full mt-4 ml-2">
             <h3 className="font-bold text-[16px] text-black">Tasks</h3>
-            {/* <TaskTab
-              setCurrentTab={setCurrentTab}
-              currentTab={currentTab}
-              pageLink={"/upcoming"}
-              state={"upcoming"}
-              title={"Upcoming"}
-              lengthTask={5}
-            /> */}
             <TaskTab
               setCurrentTab={setCurrentTab}
               currentTab={currentTab}
               pageLink={"/"}
               state={"/"}
               title={"Today"}
-              lengthTask={10}
+              lengthTask={todos.length}
             />
             <TaskTab
               setCurrentTab={setCurrentTab}
@@ -57,14 +53,8 @@ const Navigation = () => {
               pageLink={"/lists"}
               state={"lists"}
               title={"Lists"}
+              lengthTask={listCategories.length}
             />
-            {/* <TaskTab
-              setCurrentTab={setCurrentTab}
-              currentTab={currentTab}
-              pageLink={"/calendar"}
-              state={"calendar"}
-              title={"Calendar"}
-            /> */}
           </div>
 
           {/*Categories - Tags*/}

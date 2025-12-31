@@ -17,20 +17,8 @@ const TaskTab = (props) => {
       } 'group hover:bg-neutral-200 flex items-center justify-between my-1 cursor-pointer py-2 transition-all duration-300 px-2 rounded-sm`}
     >
       <div className="flex items-center">
-        {title == "Upcoming" && (
-          <FaDiagramNext
-            color={`${currentTab == state ? "#000000" : "#737373"}`}
-            className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"
-          />
-        )}
         {title == "Today" && (
           <FaListOl
-            color={`${currentTab == state ? "#000000" : "#737373"}`}
-            className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"
-          />
-        )}
-        {title == "Calendar" && (
-          <FaCalendarAlt
             color={`${currentTab == state ? "#000000" : "#737373"}`}
             className="mr-2 text-neutral-500 group-hover:text-black transition-all duration-300"
           />
@@ -52,17 +40,15 @@ const TaskTab = (props) => {
           {title}
         </span>
       </div>
-      {title == "Upcoming" || title == "Today" ? (
-        <div
-          className={`${
-            currentTab == state ? "bg-white" : "bg-neutral-100"
-          }  w-10 group-hover:bg-white transition-all duration-300 px-3 rounded-md`}
-        >
-          <span className="block text-center text-sm font-bold">
-            {lengthTask}
-          </span>
-        </div>
-      ) : null}
+      <div
+        className={`${
+          currentTab == state ? "bg-white" : "bg-neutral-100"
+        }  w-10 group-hover:bg-white transition-all duration-300 px-3 rounded-md`}
+      >
+        <span className="block text-center text-sm font-bold">
+          {lengthTask}
+        </span>
+      </div>
     </Link>
   );
 };

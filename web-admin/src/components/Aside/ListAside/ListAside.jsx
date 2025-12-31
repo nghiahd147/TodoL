@@ -6,12 +6,14 @@ import useControlTab from "../../../store/useControlTab";
 import useTodoStore from "../../../store/useTodoStore";
 import { convertDate } from "../../../utils/format";
 import Loader from "../../Loader/Loader";
+import { FaPlus } from "react-icons/fa";
 
 const ListAside = () => {
   const { idCategory, getCategoryById, categoryDetail } = useCateStore();
   const { todos, getAllTodos, changeStatusTodo, isLoading, notification } =
     useTodoStore();
   const { handleTab } = useControlTab();
+  const todoCategory = todos.filter((item) => item.cate_id === idCategory);
 
   const [messageApi, contextHolder] = message.useMessage();
   const successMessage = () => {
@@ -53,9 +55,7 @@ const ListAside = () => {
       <div className="p-6">
         {/* Title */}
         <div className="flex items-center justify-between">
-          <span className="font-bold text-2xl">
-            Task List of {categoryDetail?.name}
-          </span>
+          <span className="font-bold text-2xl">{categoryDetail?.name}</span>
           <Tooltip title="Close this tab">
             <TiDelete
               className="cursor-pointer w-8 h-8"
@@ -71,7 +71,7 @@ const ListAside = () => {
           {/* Todo */}
           {isLoading == false ? (
             <>
-              {todos.map((item, _) => {
+              {todoCategory.map((item, _) => {
                 return (
                   <div
                     key={item._id}
@@ -111,6 +111,13 @@ const ListAside = () => {
               <Loader />
             </div>
           )}
+        </div>
+        <div
+          className="flex items-center w-full cursor-pointer mt-3 hover:bg-neutral-200 transition-all duration-300 py-1 rounded-xl px-2"
+          onClick={() => handleTab("add-task")}
+        >
+          <FaPlus color="#737373" className="ml-2" />
+          <span className="text-neutral-500 font-bold ml-2">Add New Task</span>
         </div>
       </div>
     </>
