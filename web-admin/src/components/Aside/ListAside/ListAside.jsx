@@ -9,10 +9,12 @@ import Loader from "../../Loader/Loader";
 import { FaPlus } from "react-icons/fa";
 
 const ListAside = () => {
-  const { idCategory, getCategoryById, categoryDetail } = useCateStore();
+  const { idCategory, setCategoryId, getCategoryById, categoryDetail } =
+    useCateStore();
   const { todos, getAllTodos, changeStatusTodo, isLoading, notification } =
     useTodoStore();
   const { handleTab } = useControlTab();
+
   const todoCategory = todos.filter((item) => item.cate_id === idCategory);
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -83,6 +85,7 @@ const ListAside = () => {
                         className={`${
                           item.status == "done" && "line-through text-gray-300"
                         } overflow-hidden whitespace-nowrap text-ellipsis`}
+                        onClick={() => setCategoryId(item._id)}
                       >
                         {item.title}
                       </span>

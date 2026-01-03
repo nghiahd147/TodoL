@@ -1,6 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
 import { API_ENDPOINTS } from "../config/api";
+import { notification } from "antd";
 
 const useTodoStore = create((set) => ({
   isLoading: false,
@@ -19,6 +20,21 @@ const useTodoStore = create((set) => ({
     } catch (error) {
       console.log("error", error);
       set({ isLoading: false });
+    }
+  },
+
+  createTodo: async (data) => {
+    set({ isLoading: true });
+    try {
+      const res = await axios.post(API_ENDPOINTS.TODOS.createTodo, data);
+      if (res.status === 200) {
+        set({ isLoading: false, notification: res.data?.message });
+      } else {
+        set({ isLoading: false, notification: res.data?.message });
+      }
+    } catch (error) {
+      console.log("error", error);
+      set({ isLoading: false, notification: res.data?.message });
     }
   },
 

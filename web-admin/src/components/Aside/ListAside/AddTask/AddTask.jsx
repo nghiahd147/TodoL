@@ -1,13 +1,41 @@
-import { Button, Form, Input, InputNumber, Select, Tooltip } from "antd";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  message,
+  Select,
+  Tooltip,
+} from "antd";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import useControlTab from "../../../../store/useControlTab";
+import useCateStore from "../../../../store/useCateStore";
+import useTodoStore from "../../../../store/useTodoStore";
 
 const AddTask = () => {
   const { handleTab } = useControlTab();
+  const { idCategory } = useCateStore();
+  const [form] = Form.useForm();
+  const { createTodo, notification } = useTodoStore();
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const successMessage = () => {
+    messageApi.open({
+      type: "success",
+      content: notification,
+    });
+  };
+  const errorMessage = () => {
+    messageApi.open({
+      type: "error",
+      content: notification,
+    });
+  };
+
   const layout = {
     labelCol: { span: 5 },
-    wrapperCol: { span: 16 },
   };
+
   const validateMessages = {
     required: "${label} is required!",
     types: {
@@ -18,11 +46,38 @@ const AddTask = () => {
       cate_id: "${label} is not a valid cate_id",
     },
   };
-  const onFinish = (values) => {
-    console.log(values);
+
+  const initialValuesTodo = {
+    title: "",
+    status: "in_progress",
+    priority: "high",
+    due_date: "",
+    cate_id: idCategory,
   };
+
+  const onFinish = async (values) => {
+    const { title, status, priority, due_date, cate_id } = values;
+    const payload = {
+      title,
+      status,
+      priority,
+      due_date: due_date.format("YYYY-MM-DD"),
+      cate_id,
+    };
+    try {
+      await createTodo(payload);
+      successMessage();
+      setTimeout(() => {
+        handleTab("list-detail");
+      }, 1000);
+    } catch (error) {
+      errorMessage();
+    }
+  };
+
   return (
     <>
+      {contextHolder}
       <div className="flex items-center p-6">
         <Tooltip title="Back to list">
           <IoMdArrowRoundBack
@@ -37,13 +92,15 @@ const AddTask = () => {
 
       <Form
         {...layout}
+        form={form}
         name="add-task"
         onFinish={onFinish}
         style={{ maxWidth: 600 }}
+        initialValues={initialValuesTodo}
         validateMessages={validateMessages}
       >
         <Form.Item name={"title"} label="Title" rules={[{ required: true }]}>
-          <Input />
+          <Input placeholder="Title" />
         </Form.Item>
         <Form.Item name={"status"} label="Status" rules={[{ required: true }]}>
           <Select
@@ -60,11 +117,11 @@ const AddTask = () => {
           rules={[{ required: true }]}
         >
           <Select
-            defaultValue="high"
+            // defaultValue="high"
             options={[
-              { label: "Low", value: "low" },
-              { label: "Medium", value: "medium" },
               { label: "High", value: "high" },
+              { label: "Medium", value: "medium" },
+              { label: "Low", value: "low" },
             ]}
           />
         </Form.Item>
@@ -73,14 +130,15 @@ const AddTask = () => {
           label="Due date"
           rules={[{ required: true }]}
         >
-          due date
+          <DatePicker />
         </Form.Item>
         <Form.Item
           name={"cate_id"}
           label="Category"
           rules={[{ required: true }]}
+          hidden
         >
-          <Input />
+          <Input defaultValue={idCategory} />
         </Form.Item>
         <Form.Item label={null}>
           <Button type="primary" htmlType="submit">

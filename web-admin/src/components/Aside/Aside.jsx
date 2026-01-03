@@ -17,6 +17,8 @@ const Aside = () => {
     <div className={`flex flex-col h-screen w-[450px] bg-neutral-50`}>
       {isTab === "category" ? (
         <CategoryAside />
+      ) : isTab === "category-detail" ? (
+        <CategoryAside />
       ) : isTab === "tag" ? (
         <TagAside />
       ) : isTab === "list-detail" ? (

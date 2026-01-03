@@ -78,6 +78,7 @@ const CategoryNavigation = () => {
               <div
                 key={item._id}
                 className="flex justify-between items-center bg-neutral-50 hover:bg-neutral-200s"
+                onClick={() => handleTab("category-detail")}
               >
                 <div
                   key={item._id}
