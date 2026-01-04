@@ -118,3 +118,16 @@ This project is licensed under the MIT License.
 - color.toHexString(): dùng để lấy ra mã màu `#000` ở ColorPicker
 - italic: chữ nghiêng trong tailwindcss
 - {{ transform: "scale(1.4)" }} dùng để tằng kích thước cho component Checkbox của Ant Design
+- onContextMenu(): sự kiện chuột phải | e.preventDefault() loại bỏ chuột phải mặc định (dùng khi cần chuột phải vào đâu ra giao diện của mình)
+- {...bien, current: false}: show gtri cũ, và chỉ thay đổi gia trị đang set lại
+
+#### React-Router-Dom
+
+```jsx
+<Routes>
+  <Route element={page}>
+    <Route path="/" element={name_page}>
+    <Route path="/list" element={name_page}>
+  </Route>
+</Routes>
+```

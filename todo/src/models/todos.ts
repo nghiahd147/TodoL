@@ -17,8 +17,7 @@ const todoSchema = new mongoose.Schema(
       default: 'high'
     },
     due_date: {
-      type: Date,
-      default: Date.now
+      type: Date
     },
     cate_id: {
       type: mongoose.Schema.Types.ObjectId,

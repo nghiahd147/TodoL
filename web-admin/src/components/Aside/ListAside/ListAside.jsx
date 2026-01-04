@@ -14,6 +14,11 @@ const ListAside = () => {
   const { todos, getAllTodos, changeStatusTodo, isLoading, notification } =
     useTodoStore();
   const { handleTab } = useControlTab();
+  const [mouse, setMouse] = useState({
+    current: false,
+    x: 0,
+    y: 0,
+  });
 
   const todoCategory = todos.filter((item) => item.cate_id === idCategory);
 
@@ -51,6 +56,20 @@ const ListAside = () => {
     }
   };
 
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    console.log("click");
+    setMouse({
+      current: true,
+      x: e.pageX,
+      y: e.pageY,
+    });
+  };
+
+  const handleCloseMenu = () => {
+    setMouse({ ...mouse, current: false });
+  };
+
   return (
     <>
       {contextHolder}
@@ -77,25 +96,51 @@ const ListAside = () => {
                 return (
                   <div
                     key={item._id}
-                    className="w-full flex items-center justify-between bg-gray-100 rounded-3xl p-2 my-2 shadow-sm"
+                    className="cursor-default w-full flex items-center justify-between bg-gray-100 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-3xl p-2 my-2 shadow-sm"
+                    onContextMenu={handleContextMenu}
+                    onClick={handleCloseMenu}
                   >
+                    {/* {mouse.current == true && (
+                      <div
+                        className={`absolute top-[${mouse.x}] right-[0] p-2-5 border border-gray-200 shadow-sm`}
+                      >
+                        aaa
+                      </div>
+                    )} */}
                     {/* Info */}
                     <div className="w-[80%] flex flex-col justify-between ml-4">
                       <span
                         className={`${
                           item.status == "done" && "line-through text-gray-300"
                         } overflow-hidden whitespace-nowrap text-ellipsis`}
-                        onClick={() => setCategoryId(item._id)}
                       >
                         {item.title}
                       </span>
-                      <span
-                        className={`${
-                          item.status === "done" && "line-through text-gray-300"
-                        } italic text-sm`}
-                      >
-                        Due date: {convertDate(item.due_date)}
-                      </span>
+                      <div className="mt-auto flex items-center">
+                        <span
+                          className={`${
+                            item.status === "done" &&
+                            "line-through text-gray-300"
+                          } italic text-sm ${
+                            item.priority === "high"
+                              ? "text-red-300"
+                              : item.priority === "medium"
+                              ? "text-orange-300"
+                              : "text-blue-300"
+                          }`}
+                        >
+                          Level: {item.priority}
+                        </span>
+                        <span className="px-2">/</span>
+                        <span
+                          className={`${
+                            item.status === "done" &&
+                            "line-through text-gray-300"
+                          } italic text-sm text-gray-500`}
+                        >
+                          Due date: {convertDate(item.due_date)}
+                        </span>
+                      </div>
                     </div>
                     {/* Checked */}
                     <div className="mr-4">
