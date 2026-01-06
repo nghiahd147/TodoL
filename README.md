@@ -144,3 +144,10 @@ This project is licensed under the MIT License.
   </Route>
 </Routes>
 ```
+
+## Hiểu rõ useEffect
+
+- Trong trường hợp useEffect trả ra data detail ban đầu là null thì hãy check xem id không tồn tại thì return, không thì sẽ
+  gặp trường hợp là null giá trị và bị trắng trang
+  > Do vòng chạy của useEffect là chạy sau render giao diện `mount -> render -> effect -> data -> render lại (nếu có dependencies)`
+  > Khởi tạo component -> Render giao diện -> Chạy useEffect -> Data về thì -> Chạy tiếp useEffect nếu có dependencies

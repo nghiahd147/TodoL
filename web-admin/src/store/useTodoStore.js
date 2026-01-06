@@ -13,10 +13,11 @@ const useTodoStore = create((set) => ({
     set({ idTodo: id });
   },
 
-  getAllTodos: async () => {
+  getAllTodos: async (params) => {
     set({ isLoading: true });
+    console.log(params);
     try {
-      const res = await axios.get(API_ENDPOINTS.TODOS.getListTodos);
+      const res = await axios.get(API_ENDPOINTS.TODOS.getListTodos, { params });
       if (res.status === 200) {
         set({ isLoading: false, todos: res.data?.data });
       } else {
@@ -33,7 +34,7 @@ const useTodoStore = create((set) => ({
     try {
       const res = await axios.get(API_ENDPOINTS.TODOS.getTodoDetail(id));
       if (res.status === 200) {
-        set({ isLoading: false, todoDetail: res.data?.data });
+        set({ isLoading: false, todoDetail: res?.data?.data });
       } else {
         set({ isLoading: false, todoDetail: null });
       }

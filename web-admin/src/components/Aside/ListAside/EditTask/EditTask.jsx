@@ -12,6 +12,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import useControlTab from "../../../../store/useControlTab";
 import useCateStore from "../../../../store/useCateStore";
 import useTodoStore from "../../../../store/useTodoStore";
+import dayjs from "dayjs";
 
 const EditTask = () => {
   const { handleTab } = useControlTab();
@@ -19,6 +20,19 @@ const EditTask = () => {
   const [form] = Form.useForm();
   const { idTodo, todoDetail, getTodoDetail, updateTodo, notification } =
     useTodoStore();
+
+  useEffect(() => {
+    const fetchTodoDetail = async () => {
+      try {
+        if (idTodo) {
+          await getTodoDetail(idTodo);
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchTodoDetail();
+  }, [idTodo]);
 
   const [messageApi, contextHolder] = message.useMessage();
   const successMessage = () => {
@@ -50,22 +64,15 @@ const EditTask = () => {
   };
 
   useEffect(() => {
-    const fetchTodoDetail = async () => {
-      await getTodoDetail(idTodo);
-    };
-
-    fetchTodoDetail();
-  }, [idCategory]);
-
-  console.log("todoDetail", todoDetail);
-
-  const initialValuesTodo = {
-    title: todoDetail?.title,
-    status: todoDetail?.status,
-    priority: todoDetail?.priority,
-    due_date: "",
-    cate_id: idCategory,
-  };
+    if (!todoDetail) return;
+    form.setFieldsValue({
+      title: todoDetail.title,
+      status: todoDetail.status,
+      priority: todoDetail.priority,
+      due_date: todoDetail.due_date ? dayjs(todoDetail.due_date) : null,
+      cate_id: todoDetail.cate_id ?? idCategory,
+    });
+  }, [todoDetail]);
 
   const onFinish = async (values) => {
     const { title, status, priority, due_date, cate_id } = values;
@@ -108,7 +115,7 @@ const EditTask = () => {
         name="add-task"
         onFinish={onFinish}
         style={{ maxWidth: 600 }}
-        initialValues={initialValuesTodo}
+        // initialValues={initialValuesTodo}
         validateMessages={validateMessages}
       >
         <Form.Item name={"title"} label="Title" rules={[{ required: true }]}>

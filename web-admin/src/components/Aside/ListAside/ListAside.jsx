@@ -1,16 +1,23 @@
-import { useEffect } from "react";
-import { Checkbox, message, Tooltip, Dropdown } from "antd";
+import { useEffect, useState } from "react";
+import {
+  Checkbox,
+  message,
+  Tooltip,
+  Dropdown,
+  Flex,
+  Button,
+  DatePicker,
+} from "antd";
 import { TiDelete, TiEdit } from "react-icons/ti";
 import useCateStore from "../../../store/useCateStore";
 import useControlTab from "../../../store/useControlTab";
 import useTodoStore from "../../../store/useTodoStore";
-import { convertDate } from "../../../utils/format";
+import { convertDate, convertToUTC00 } from "../../../utils/format";
 import Loader from "../../Loader/Loader";
 import { FaPlus } from "react-icons/fa";
 
 const ListAside = () => {
-  const { idCategory, setCategoryId, getCategoryById, categoryDetail } =
-    useCateStore();
+  const { idCategory, getCategoryById, categoryDetail } = useCateStore();
   const {
     idTodo,
     setIdTodo,
@@ -22,6 +29,12 @@ const ListAside = () => {
     deleteTodo,
   } = useTodoStore();
   const { handleTab } = useControlTab();
+  const [params, setParams] = useState([
+    {
+      status: "",
+      due_date: "",
+    },
+  ]);
 
   const [messageApi, contextHolder] = message.useMessage();
   const successMessage = (message) => {
@@ -44,13 +57,14 @@ const ListAside = () => {
   }, [idCategory]);
 
   useEffect(() => {
-    getAllTodos();
-  }, []);
+    getAllTodos(params);
+  }, [params]);
 
   const handleCheked = async (idTodo, e) => {
     const status = e.target.checked === false ? "in_progress" : "done";
     try {
       await changeStatusTodo(idTodo, status);
+      getAllTodos(params);
       successMessage();
     } catch (error) {
       console.log("error", error);
@@ -118,6 +132,44 @@ const ListAside = () => {
           </Tooltip>
         </div>
 
+        <div className="my-2 flex items-center">
+          <span className="mr-2">Status:</span>
+          <Flex gap="small" wrap>
+            <Button
+              color="cyan"
+              variant="filled"
+              onClick={() => setParams({ status: "in_progress" })}
+            >
+              In progress
+            </Button>
+            <Button
+              color="green"
+              variant="filled"
+              onClick={() => setParams({ status: "done" })}
+            >
+              Done
+            </Button>
+            <Button
+              color="danger"
+              variant="filled"
+              onClick={() => setParams({ status: "" })}
+            >
+              Cancel
+            </Button>
+          </Flex>
+        </div>
+
+        <div className="my-2 flex items-center">
+          <span className="mr-4">Date:</span>
+          <DatePicker
+            onChange={(value) => {
+              value
+                ? setParams({ ...params, due_date: convertToUTC00(value) })
+                : setParams({ ...params, due_date: "" });
+            }}
+          />
+        </div>
+
         {/* Todos */}
         <div className="mt-3">
           {/* Todo */}
@@ -125,9 +177,8 @@ const ListAside = () => {
             <>
               {todoCategory.map((item, _) => {
                 return (
-                  <Dropdown menu={{ items }} trigger={["click"]}>
+                  <Dropdown key={item._id} menu={{ items }} trigger={["click"]}>
                     <div
-                      key={item._id}
                       className="relative cursor-default w-full flex items-center justify-between bg-gray-100 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-3xl p-2 my-2 shadow-sm"
                       onClick={() => setIdTodo(item._id)}
                     >

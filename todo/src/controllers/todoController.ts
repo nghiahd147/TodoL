@@ -1,9 +1,18 @@
 import { RequestHandler } from 'express'
+import { todoParams } from '../types/index.js'
 import Todo from '~/models/todos.js'
 
 export const getAllTodos: RequestHandler = async (req, res) => {
   try {
-    const todo = await Todo.find()
+    const { status, due_date } = req.query
+
+    let filters: Partial<todoParams> = {}
+
+    if (status) filters.status = status.toString()
+    if (due_date) filters.due_date = due_date.toString()
+
+    const todo = await Todo.find(filters)
+
     res.status(200).json({
       data: todo
     })
