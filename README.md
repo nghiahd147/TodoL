@@ -104,9 +104,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License.
 
-## Accumulation
-
-### Note
+## Accumulate knowledge through projects
 
 - form.setFieldsValue: set giá trị trong Form
 - form.resetFields: reset giá trị trong Form
@@ -118,16 +116,31 @@ This project is licensed under the MIT License.
 - color.toHexString(): dùng để lấy ra mã màu `#000` ở ColorPicker
 - italic: chữ nghiêng trong tailwindcss
 - {{ transform: "scale(1.4)" }} dùng để tằng kích thước cho component Checkbox của Ant Design
-- onContextMenu(): sự kiện chuột phải | e.preventDefault() loại bỏ chuột phải mặc định (dùng khi cần chuột phải vào đâu ra giao diện của mình)
-- {...bien, current: false}: show gtri cũ, và chỉ thay đổi gia trị đang set lại
+
+> Event onContextMenu()
+
+```
+ onContextMenu(): sự kiện chuột phải
+ e.preventDefault(): loại bỏ chuột phải mặc định (dùng khi cần chuột phải vào đâu ra giao diện của mình)
+ e.pageX: lấy tọa độ X
+ e.pageY: lấy tọa độ Y
+```
+
+> {...variable, variableC: false}: show gtri cũ, và chỉ thay đổi giá trị đang set lại
+
+```
+  First: {variableA: 2, variableB: 2, variableC: true}
+  Change: {...variable, variableC: false}
+  => {variableA: 2, variableB: 2, variableC: false}
+```
 
 #### React-Router-Dom
 
 ```jsx
 <Routes>
-  <Route element={page}>
-    <Route path="/" element={name_page}>
-    <Route path="/list" element={name_page}>
+  <Route element={ten_component_cha}>
+    <Route path="/" element={name_page_children_home}>
+    <Route path="/list" element={name_page_children_list}>
   </Route>
 </Routes>
 ```

@@ -6,6 +6,7 @@ import AddTask from "./ListAside/AddTask/AddTask";
 import ListAside from "./ListAside/ListAside";
 import NullAside from "./NullAside/NullAside";
 import TagAside from "./TagAside/TagAside";
+import EditTask from "./ListAside/EditTask/EditTask";
 
 const Aside = () => {
   const { isTab } = useControlTab();
@@ -25,10 +26,10 @@ const Aside = () => {
         <ListAside />
       ) : isTab === "add-task" ? (
         <AddTask />
+      ) : isTab === "edit-task" ? (
+        <EditTask />
       ) : (
-        <>
-          <NullAside />
-        </>
+        <NullAside />
       )}
     </div>
   );

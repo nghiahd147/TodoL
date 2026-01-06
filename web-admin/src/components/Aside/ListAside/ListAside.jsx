@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Checkbox, message, Tooltip } from "antd";
-import { TiDelete } from "react-icons/ti";
+import { useEffect } from "react";
+import { Checkbox, message, Tooltip, Dropdown } from "antd";
+import { TiDelete, TiEdit } from "react-icons/ti";
 import useCateStore from "../../../store/useCateStore";
 import useControlTab from "../../../store/useControlTab";
 import useTodoStore from "../../../store/useTodoStore";
@@ -11,30 +11,33 @@ import { FaPlus } from "react-icons/fa";
 const ListAside = () => {
   const { idCategory, setCategoryId, getCategoryById, categoryDetail } =
     useCateStore();
-  const { todos, getAllTodos, changeStatusTodo, isLoading, notification } =
-    useTodoStore();
+  const {
+    idTodo,
+    setIdTodo,
+    todos,
+    getAllTodos,
+    changeStatusTodo,
+    isLoading,
+    notification,
+    deleteTodo,
+  } = useTodoStore();
   const { handleTab } = useControlTab();
-  const [mouse, setMouse] = useState({
-    current: false,
-    x: 0,
-    y: 0,
-  });
-
-  const todoCategory = todos.filter((item) => item.cate_id === idCategory);
 
   const [messageApi, contextHolder] = message.useMessage();
-  const successMessage = () => {
+  const successMessage = (message) => {
     messageApi.open({
       type: "success",
-      content: notification,
+      content: notification || `${message}`,
     });
   };
   const errorMessage = () => {
     messageApi.open({
       type: "error",
-      content: notification,
+      content: notification || `${message}`,
     });
   };
+
+  const todoCategory = todos.filter((item) => item.cate_id === idCategory);
 
   useEffect(() => {
     getCategoryById(idCategory);
@@ -49,26 +52,54 @@ const ListAside = () => {
     try {
       await changeStatusTodo(idTodo, status);
       successMessage();
-      getAllTodos();
     } catch (error) {
       console.log("error", error);
       errorMessage();
     }
   };
 
-  const handleContextMenu = (e) => {
-    e.preventDefault();
-    console.log("click");
-    setMouse({
-      current: true,
-      x: e.pageX,
-      y: e.pageY,
-    });
+  const handleDeleteTask = async () => {
+    try {
+      await deleteTodo(idTodo);
+      getAllTodos();
+      successMessage("Deleted successfully");
+    } catch (error) {
+      errorMessage(error);
+    }
   };
 
-  const handleCloseMenu = () => {
-    setMouse({ ...mouse, current: false });
-  };
+  const items = [
+    {
+      label: (
+        <div
+          className="flex items-center gap-x-2"
+          onClick={() => {
+            handleTab("edit-task");
+          }}
+        >
+          <TiEdit size={16} color="orange" />
+          <span target="_blank" rel="noopener noreferrer">
+            Edit task
+          </span>
+        </div>
+      ),
+      key: "edit-task",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: (
+        <div className="flex items-center gap-x-2" onClick={handleDeleteTask}>
+          <TiDelete size={20} color="red" />
+          <span target="_blank" rel="noopener noreferrer">
+            Remove task
+          </span>
+        </div>
+      ),
+      key: "remove task",
+    },
+  ];
 
   return (
     <>
@@ -94,63 +125,58 @@ const ListAside = () => {
             <>
               {todoCategory.map((item, _) => {
                 return (
-                  <div
-                    key={item._id}
-                    className="cursor-default w-full flex items-center justify-between bg-gray-100 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-3xl p-2 my-2 shadow-sm"
-                    onContextMenu={handleContextMenu}
-                    onClick={handleCloseMenu}
-                  >
-                    {/* {mouse.current == true && (
-                      <div
-                        className={`absolute top-[${mouse.x}] right-[0] p-2-5 border border-gray-200 shadow-sm`}
-                      >
-                        aaa
-                      </div>
-                    )} */}
-                    {/* Info */}
-                    <div className="w-[80%] flex flex-col justify-between ml-4">
-                      <span
-                        className={`${
-                          item.status == "done" && "line-through text-gray-300"
-                        } overflow-hidden whitespace-nowrap text-ellipsis`}
-                      >
-                        {item.title}
-                      </span>
-                      <div className="mt-auto flex items-center">
+                  <Dropdown menu={{ items }} trigger={["click"]}>
+                    <div
+                      key={item._id}
+                      className="relative cursor-default w-full flex items-center justify-between bg-gray-100 hover:bg-gray-200 transition-all duration-300 ease-in-out rounded-3xl p-2 my-2 shadow-sm"
+                      onClick={() => setIdTodo(item._id)}
+                    >
+                      {/* Info */}
+                      <div className="w-[80%] flex flex-col justify-between ml-4">
                         <span
                           className={`${
-                            item.status === "done" &&
+                            item.status == "done" &&
                             "line-through text-gray-300"
-                          } italic text-sm ${
-                            item.priority === "high"
-                              ? "text-red-300"
-                              : item.priority === "medium"
-                              ? "text-orange-300"
-                              : "text-blue-300"
-                          }`}
+                          } overflow-hidden whitespace-nowrap text-ellipsis`}
                         >
-                          Level: {item.priority}
+                          {item.title}
                         </span>
-                        <span className="px-2">/</span>
-                        <span
-                          className={`${
-                            item.status === "done" &&
-                            "line-through text-gray-300"
-                          } italic text-sm text-gray-500`}
-                        >
-                          Due date: {convertDate(item.due_date)}
-                        </span>
+                        <div className="mt-auto flex items-center">
+                          <span
+                            className={`${
+                              item.status === "done" &&
+                              "line-through text-gray-300"
+                            } italic text-sm ${
+                              item.priority === "high"
+                                ? "text-red-300"
+                                : item.priority === "medium"
+                                ? "text-orange-300"
+                                : "text-blue-300"
+                            }`}
+                          >
+                            Level: {item.priority}
+                          </span>
+                          <span className="px-2">/</span>
+                          <span
+                            className={`${
+                              item.status === "done" &&
+                              "line-through text-gray-300"
+                            } italic text-sm text-gray-500`}
+                          >
+                            Due date: {convertDate(item.due_date)}
+                          </span>
+                        </div>
+                      </div>
+                      {/* Checked */}
+                      <div className="mr-4">
+                        <Checkbox
+                          checked={item.status == "in_progress" ? false : true}
+                          onChange={(e) => handleCheked(item._id, e)}
+                          style={{ transform: "scale(1.4)" }}
+                        />
                       </div>
                     </div>
-                    {/* Checked */}
-                    <div className="mr-4">
-                      <Checkbox
-                        checked={item.status == "in_progress" ? false : true}
-                        onChange={(e) => handleCheked(item._id, e)}
-                        style={{ transform: "scale(1.4)" }}
-                      />
-                    </div>
-                  </div>
+                  </Dropdown>
                 );
               })}
             </>
