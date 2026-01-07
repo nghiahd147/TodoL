@@ -4,7 +4,7 @@ import Aside from "../components/Aside/Aside.jsx";
 const MainLayout = () => {
   return (
     <>
-      <div className="flex justify-between relative overflow-x-hidden">
+      <div className="flex justify-between relative">
         <Navigation />
         <div className="min-h-screen flex-1 pt-6 pb-6 pl-6 pr-6">
           <Outlet />

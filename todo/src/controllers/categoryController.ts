@@ -7,12 +7,13 @@ export const getListCategory: RequestHandler = async (req, res) => {
     // const page = req.query.page || 1;
     // const limit = req.query.limit || 10;
     // const skip = (page - 1) * limit;
-    // const search = req.query.search || "";
+    const search = req.query.search || ''
 
-    // const query = search ? { name: { $regex: search, $options: "i" } } : {};
+    const query = search ? { name: { $regex: search, $options: 'i' } } : {}
 
-    const categories = await Category.find()
-    // query
+    console.log(query)
+
+    const categories = await Category.find(query)
     // .skip(skip).limit(limit);
 
     const total = await Category.countDocuments()

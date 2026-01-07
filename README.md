@@ -151,3 +151,9 @@ This project is licensed under the MIT License.
   gặp trường hợp là null giá trị và bị trắng trang
   > Do vòng chạy của useEffect là chạy sau render giao diện `mount -> render -> effect -> data -> render lại (nếu có dependencies)`
   > Khởi tạo component -> Render giao diện -> Chạy useEffect -> Data về thì -> Chạy tiếp useEffect nếu có dependencies
+
+## Axios params | query
+
+```
+axios.get('url', params: {variable: value})
+```

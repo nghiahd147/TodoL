@@ -16,19 +16,19 @@ const AddTask = () => {
   const { handleTab } = useControlTab();
   const { idCategory } = useCateStore();
   const [form] = Form.useForm();
-  const { createTodo, notification } = useTodoStore();
+  const { createTodo } = useTodoStore();
 
   const [messageApi, contextHolder] = message.useMessage();
-  const successMessage = () => {
+  const successMessage = (message) => {
     messageApi.open({
       type: "success",
-      content: notification,
+      content: `${message}`,
     });
   };
-  const errorMessage = () => {
+  const errorMessage = (message) => {
     messageApi.open({
       type: "error",
-      content: notification,
+      content: `${message}`,
     });
   };
 
@@ -66,12 +66,12 @@ const AddTask = () => {
     };
     try {
       await createTodo(payload);
-      successMessage();
+      successMessage("Created successfully");
       setTimeout(() => {
         handleTab("list-detail");
       }, 1000);
     } catch (error) {
-      errorMessage();
+      errorMessage(error);
     }
   };
 

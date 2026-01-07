@@ -7,7 +7,6 @@ const useTodoStore = create((set) => ({
   todos: [],
   idTodo: null,
   todoDetail: null,
-  notification: "",
 
   setIdTodo: (id) => {
     set({ idTodo: id });
@@ -15,7 +14,6 @@ const useTodoStore = create((set) => ({
 
   getAllTodos: async (params) => {
     set({ isLoading: true });
-    console.log(params);
     try {
       const res = await axios.get(API_ENDPOINTS.TODOS.getListTodos, { params });
       if (res.status === 200) {
@@ -49,13 +47,13 @@ const useTodoStore = create((set) => ({
     try {
       const res = await axios.post(API_ENDPOINTS.TODOS.createTodo, data);
       if (res.status === 200) {
-        set({ isLoading: false, notification: res.data?.message });
+        set({ isLoading: false });
       } else {
-        set({ isLoading: false, notification: res.data?.message });
+        set({ isLoading: false });
       }
     } catch (error) {
       console.log("error", error);
-      set({ isLoading: false, notification: error });
+      set({ isLoading: false });
     }
   },
 
@@ -64,13 +62,13 @@ const useTodoStore = create((set) => ({
     try {
       const res = await axios.put(API_ENDPOINTS.TODOS.updateTodo(id), payload);
       if (res.status === 200) {
-        set({ isLoading: false, notification: res?.data?.message });
+        set({ isLoading: false });
       } else {
-        set({ isLoading: false, notification: res?.data?.message });
+        set({ isLoading: false });
       }
     } catch (error) {
       console.log("error", error);
-      set({ isLoading: false, notification: error });
+      set({ isLoading: false });
     }
   },
 
@@ -81,9 +79,9 @@ const useTodoStore = create((set) => ({
         status,
       });
       if (res.status === 200) {
-        set({ isLoading: false, notification: res.data.message });
+        set({ isLoading: false });
       } else {
-        set({ isLoading: false, notification: res.data.message });
+        set({ isLoading: false });
       }
     } catch (error) {
       console.log("error", error);

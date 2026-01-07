@@ -18,8 +18,7 @@ const EditTask = () => {
   const { handleTab } = useControlTab();
   const { idCategory } = useCateStore();
   const [form] = Form.useForm();
-  const { idTodo, todoDetail, getTodoDetail, updateTodo, notification } =
-    useTodoStore();
+  const { idTodo, todoDetail, getTodoDetail, updateTodo } = useTodoStore();
 
   useEffect(() => {
     const fetchTodoDetail = async () => {
@@ -35,16 +34,16 @@ const EditTask = () => {
   }, [idTodo]);
 
   const [messageApi, contextHolder] = message.useMessage();
-  const successMessage = () => {
+  const successMessage = (message) => {
     messageApi.open({
       type: "success",
-      content: notification,
+      content: `${message}`,
     });
   };
-  const errorMessage = () => {
+  const errorMessage = (message) => {
     messageApi.open({
       type: "error",
-      content: notification,
+      content: `${message}`,
     });
   };
 
@@ -85,12 +84,12 @@ const EditTask = () => {
     };
     try {
       await updateTodo(idTodo, payload);
-      successMessage();
+      successMessage("Updated successfully");
       setTimeout(() => {
         handleTab("list-detail");
       }, 1000);
     } catch (error) {
-      errorMessage();
+      errorMessage(error);
     }
   };
 

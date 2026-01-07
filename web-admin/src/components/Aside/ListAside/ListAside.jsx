@@ -25,28 +25,25 @@ const ListAside = () => {
     getAllTodos,
     changeStatusTodo,
     isLoading,
-    notification,
     deleteTodo,
   } = useTodoStore();
   const { handleTab } = useControlTab();
-  const [params, setParams] = useState([
-    {
-      status: "",
-      due_date: "",
-    },
-  ]);
+  const [params, setParams] = useState({
+    status: "",
+    due_date: "",
+  });
 
   const [messageApi, contextHolder] = message.useMessage();
   const successMessage = (message) => {
     messageApi.open({
       type: "success",
-      content: notification || `${message}`,
+      content: `${message}`,
     });
   };
-  const errorMessage = () => {
+  const errorMessage = (message) => {
     messageApi.open({
       type: "error",
-      content: notification || `${message}`,
+      content: `${message}`,
     });
   };
 
@@ -65,10 +62,10 @@ const ListAside = () => {
     try {
       await changeStatusTodo(idTodo, status);
       getAllTodos(params);
-      successMessage();
+      successMessage("Updated successfully");
     } catch (error) {
       console.log("error", error);
-      errorMessage();
+      errorMessage(error);
     }
   };
 
