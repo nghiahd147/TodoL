@@ -12,11 +12,12 @@ const useCateStore = create((set) => ({
     set({ idCategory: id });
   },
 
-  getListCategory: async () => {
+  getListCategory: async (query) => {
     set({ isLoading: true });
     try {
       const response = await axios.get(
-        API_ENDPOINTS.CATEGORIES.getListCategories
+        API_ENDPOINTS.CATEGORIES.getListCategories,
+        { params: { search: query } }
       );
       if (response.status === 200) {
         set({ isLoading: false, listCategories: response?.data?.data });

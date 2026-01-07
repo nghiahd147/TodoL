@@ -104,9 +104,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License.
 
-## Accumulation
-
-### Note
+## Accumulate knowledge through projects
 
 - form.setFieldsValue: set giá trị trong Form
 - form.resetFields: reset giá trị trong Form
@@ -116,3 +114,46 @@ This project is licensed under the MIT License.
 - onMouseLeave: xác định chuột bỏ hover
 - Combo ẩn chữ ...: `overflow-hidden whitespace-nowrap text-ellipsis`
 - color.toHexString(): dùng để lấy ra mã màu `#000` ở ColorPicker
+- italic: chữ nghiêng trong tailwindcss
+- {{ transform: "scale(1.4)" }} dùng để tằng kích thước cho component Checkbox của Ant Design
+
+> Event onContextMenu()
+
+```
+ onContextMenu(): sự kiện chuột phải
+ e.preventDefault(): loại bỏ chuột phải mặc định (dùng khi cần chuột phải vào đâu ra giao diện của mình)
+ e.pageX: lấy tọa độ X
+ e.pageY: lấy tọa độ Y
+```
+
+> {...variable, variableC: false}: show gtri cũ, và chỉ thay đổi giá trị đang set lại
+
+```
+  First: {variableA: 2, variableB: 2, variableC: true}
+  Change: {...variable, variableC: false}
+  => {variableA: 2, variableB: 2, variableC: false}
+```
+
+#### React-Router-Dom
+
+```jsx
+<Routes>
+  <Route element={ten_component_cha}>
+    <Route path="/" element={name_page_children_home}>
+    <Route path="/list" element={name_page_children_list}>
+  </Route>
+</Routes>
+```
+
+## Hiểu rõ useEffect
+
+- Trong trường hợp useEffect trả ra data detail ban đầu là null thì hãy check xem id không tồn tại thì return, không thì sẽ
+  gặp trường hợp là null giá trị và bị trắng trang
+  > Do vòng chạy của useEffect là chạy sau render giao diện `mount -> render -> effect -> data -> render lại (nếu có dependencies)`
+  > Khởi tạo component -> Render giao diện -> Chạy useEffect -> Data về thì -> Chạy tiếp useEffect nếu có dependencies
+
+## Axios params | query
+
+```
+axios.get('url', params: {variable: value})
+```

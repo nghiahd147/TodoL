@@ -1,34 +1,45 @@
+import { useEffect } from "react";
 import { Collapse, Tooltip } from "antd";
 import useCateStore from "../../store/useCateStore";
 import useControlTab from "../../store/useControlTab";
+import useTodoStore from "../../store/useTodoStore";
 
 const Lists = () => {
-  const { listCategories } = useCateStore();
+  const { listCategories, setCategoryId } = useCateStore();
+  const { todos, getAllTodos } = useTodoStore();
   const { handleTab } = useControlTab();
 
-  const items = listCategories.map((item, index) => {
+  useEffect(() => {
+    getAllTodos();
+  }, []);
+
+  const items = listCategories.map((itemCate, index) => {
     return {
       key: index,
       label: (
         <div
           className="flex items-center justify-between hover:text-blue-400 transition-all ease-in duration-300 w-full"
-          onClick={() => handleTab("list-detail")}
+          onClick={() => {
+            handleTab("list-detail");
+            setCategoryId(itemCate._id);
+          }}
         >
-          <span>{item.name}</span>
+          <span>{itemCate.name}</span>
           <Tooltip title="Remaining tasks">
             <span className="w-6 h-6 rounded-2xl border bg-white text-center">
-              5
+              {
+                todos
+                  .filter((itemTodo) => itemTodo.cate_id === itemCate._id)
+                  .filter((itemTodo) => itemTodo.status === "in_progress")
+                  .length
+              }
             </span>
           </Tooltip>
         </div>
       ),
-      children: <p>Description: {item.description}</p>,
+      children: <p>Description: {itemCate.description}</p>,
     };
   });
-
-  // const onChange = (key) => {
-  //   console.log(key);
-  // };
 
   return (
     <div>
